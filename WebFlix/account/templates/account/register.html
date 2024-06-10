@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'account/register.css' %}">
+  </head>
+  <body>
+    <div class="block-register">
+      <div class="nav">
+        <div class="register">
+            <a  class="reg-link" href="#">Регистрация</a>
+        </div>
+        <div class="autoriz">
+          <a class="aut-link" href="{% url 'auth' %}">Авторизация</a>
+        </div>
+      </div>
+      <div class="block-form">
+        <form autocomplete="off" class="form"  method="post">
+          <div class="block-error">
+            {% if error %}
+            <p class = "errors"> {{error}}</p>
+            {% endif %}
+          </div>
+            {% csrf_token %}
+          {{form.login}}
+          <div class="block2">
+            {{form.name}}
+            {{form.surname}}
+          </div>
+          {{form.mail}}
+          <div class="block2">
+            {{form.password}}
+            <input class="password" type="password" name="repassword" value="" placeholder="Подтвердить пароль*">
+          </div>
+          {{form.image}}
+          <button class="button-register" type="submit" name="button">Зарегистрироваться</button>
+        </form>
+      </div>
+
+    </div>
+  </body>
+</html>

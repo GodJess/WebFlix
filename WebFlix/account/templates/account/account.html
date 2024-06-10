@@ -1,0 +1,299 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{%  static 'account/account.css' %}">
+  </head>
+  <body>
+    <div class="blur-block"></div>
+    <main class="main">
+        <div class="header">
+          <div class="logo">
+            <h1><a class="aaa" href="{% url 'main' %}">WebFlix</a></h1>
+          </div>
+          <div class="form">
+              <form class="" action="" method="post">
+                  <div class="input-form">
+
+                  </div>
+              </form>
+          </div>
+          <div class="account">
+            <a href="{% url "account" %}" ><img class="account-image" src="https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png" alt=""></a>
+          </div>
+        </div>
+
+
+        <div class="catalog">
+          <div class= "accountblock">
+            <div class="block-acc-main">
+                <div class="acc-navigate">
+                  <div class="navigate-header">
+                    <div class="nav">
+                        <div class="nav-image">
+                          {% if length != 0 %}
+                            {% for el in user  %}
+                              <a type="button" class = "popup"><img class="image-header" src="{{ el.image}}" alt=""></a>
+                            {% endfor %}
+                          {% else %}
+                              <a type="button" class = "popup"><img  src="" alt=""></a>
+                          {% endif %}
+                        </div>
+                        <div class="modal">
+                            <div class="modal_box">
+                              <div class="modal-header">
+                                  <div class="modal-name">
+                                    <h4 class=h4>Изменение шапки профиля</h4>
+                                  </div>
+                                  <div class="modal-button-delete">
+                                    <button type="button" class="button-delete" name="button">X</button>
+                                  </div>
+                              </div>
+                                <form class="modal-form" action="{% url "addphoto" %}" method="post">
+                                  {% if length != 0 %}
+                                  {% csrf_token %}
+                                    <input type="" class="modal-input"  name="url" value="" placeholder="Введите url картинки">
+                                    <button type="submit" class="modal-submit" name="button">Загрузить</button>
+                                  {% else %}
+                                    <div class="modal-text">
+                                       <p class = "text"> Сначала необходимо <a class="text-a" href="{% url 'auth' %}">авторизоваться</a></p>
+                                    </div>
+                                  {% endif %}
+                                </form>
+                            </div>
+                        </div>
+                        <div class="nav-login">
+                          {% if length != 0 %}
+                            {% for el in user  %}
+                            <h3 class= "h3" >{{el.login}}</h3>
+                            {% endfor %}
+                          {% else %}
+                            <h3 class= "h3" >Login </h3>
+                          {% endif %}
+                        </div>
+                    </div>
+                  </div>
+                  <div class="navigate-main">
+                    <div class="references-block">
+                        <a class="references" href="{% url "myData" %}">Мои данные </a>
+                        <img class="refimg" src="https://cdn.icon-icons.com/icons2/1146/PNG/512/1486485555-188backup-disk-data-data-storage-floppy-save_81149.png" alt="">
+                    </div>
+                    <div class="references-block">
+                        <a class="references" href="{% url "setting" %}">Настройки </a>
+                        <img class="refimg" src="https://cdn.icon-icons.com/icons2/72/PNG/256/settings_14398.png" alt="">
+                    </div>
+                    <div class="references-block">
+                        <a class="references" href="{% url "support" %}">Поддержка </a>
+                        <img class="refimg" src="https://cdn.icon-icons.com/icons2/207/PNG/256/Help_and_support_24724.png" alt="">
+                    </div>
+                    <div class="references-block">
+                        <a class="references" href="{% url "analitic" %}">Аналитика </a>
+                        <img class="refimg" src="https://cdn.icon-icons.com/icons2/1851/PNG/512/analytics_116590.png" alt="">
+                    </div>
+
+                  </div>
+                  <div class="navigate-main-lost">
+                    <div class="references-block-lost">
+                      {% if length != 0 %}
+                      <a class="references" href="{% url 'delsesuser' %}">Выйти </a>
+                      {% else %}
+                      <a class="references" href="{% url 'auth' %}">Войти </a>
+                      {% endif %}
+
+
+                        <img class="refimg" src="https://cdn.icon-icons.com/icons2/1147/PNG/512/1486486314-archive-document-check-ok-success-folder-ml_81241.png" alt="">
+                    </div>
+                  </div>
+                </div>
+                <div class="acc-main">
+                  <div class="acc-main-header">
+
+                  </div>
+                  <div class="accblock">
+                    {% if navlength != 0 %}
+                      <div class="back">
+                        <a href="{% url 'backUp' %}"><img class="backimg" src="https://cdn.icon-icons.com/icons2/789/PNG/512/back_icon-icons.com_65134.png" alt=""></a>
+                      </div>
+                    {% endif %}
+
+                      {% if navlength == 0 %}
+                          <div class="acc-panel">
+                              <div class="icon-acc">
+                                <div class="icon-acc-1">
+                                    <a href="https://t.me/webflixfilm"><img class="images1" src="https://cdn.icon-icons.com/icons2/2148/PNG/512/telegram_icon_131945.png" alt=""></a>
+                                </div>
+                                <div class="icon-acc-1">
+                                    <a href="https://vk.com/tvnetflix"><img class="images1" src="https://cdn.icon-icons.com/icons2/512/PNG/512/rus-vk-02_icon-icons.com_50758.png" alt=""></a>
+                                </div>
+                                <div class="icon-acc-1">
+                                    <a href="https://youtu.be/Nt8RFvHIsb0?si=PAHVP-55bacvit2X"><img class="images1" src="https://cdn.icon-icons.com/icons2/791/PNG/512/YOUTUBE_icon-icons.com_65487.png" alt=""></a>
+                                </div>
+                              </div>
+                              <div class="options">
+                                  <p>Опции</p>
+                              </div>
+                              <div class="block-options">
+                                <div class="options1">
+                                    <a class = "aopt" href="#">VIP-контент</a>
+                                </div>
+                                <div class="options1">
+                                    <a class = "aopt" href="#">Эксклюзивы</a>
+                                </div>
+                                <div class="options1">
+                                    <a class = "aopt" href="#">Новости</a>
+                                </div>
+                              </div>
+                          </div>
+                        {% else %}
+                            {% for element in navigate%}
+                                {% if element.nav_name == "myData"  %}
+                                  {% if length != 0  %}
+                                  <div class="block-data">
+                                    <div class="data">
+                                      {% for inf in  user %}
+                                      <label class="datalabel">Логин: </label>
+                                      <input class="datainput" type="text" name="" value="{{inf.login}}" readonly>
+                                      {% endfor %}
+                                    </div>
+                                    <div class="data">
+                                      {% for inf in  user %}
+                                        <label class="datalabel">Имя: </label>
+                                        <input class="datainput" type="text" name="" value="{{inf.name}}" readonly>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="data">
+                                      {% for inf in  user %}
+                                        <label class="datalabel">Фамилия: </label>
+                                        <input class="datainput" type="text" name="" value="{{inf.surname}}" readonly>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="data">
+                                      {% for inf in  user %}
+                                        <label class="datalabel">Почтовый ящик: </label>
+                                        <input class="datainput" type="text" name="" value="{{inf.mail}}" readonly>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="data">
+                                      {% for inf in  user %}
+                                        <label class="datalabel">Пароль: </label>
+                                        <input class="datainput" type="text" name="" value="{{inf.password}}" readonly>
+                                        {% endfor %}
+                                    </div>
+
+                                  </div>
+                                  {% else %}
+                                      <div class="options1">
+                                        <a class = "aopt" href="#"><p>Вы не авторизованы!!!</p></a>
+                                      </div>
+                                  {% endif %}
+                                {%  elif element.nav_name == "setting" %}
+                                {% if length != 0  %}
+                                  <div class="block-settings">
+                                    <div class="settings-header">
+                                      <div class="set-image">
+                                        {% if length != 0 %}
+                                          {% for el in user  %}
+                                            <a type="button" class = "popup"><img class="settimage" src="{{ el.image}}" alt=""></a>
+                                          {% endfor %}
+                                        {% else %}
+                                            <a type="button" class = "popup"><img  src="" alt=""></a>
+                                        {% endif %}
+                                      </div>
+                                    </div>
+                                    <div class="setting-main">
+                                      <form autocomplete="off"  class="settform" action="{% url "changeLogin" %}" method="post">
+                                        {% csrf_token %}
+                                          <label class="datalabel">Логин: </label>
+                                          {% for data in  user %}
+                                          <input autocomplete="off" class="datainput" type="text" name="login" value="{{data.login}}">
+                                          {% endfor %}
+                                          <button type="submit" class="setbut" name="button">Изменить</button>
+                                      </form>
+                                      <form  autocomplete="off" class="settform" action="{% url "changeName" %}" method="post">
+                                        {% csrf_token %}
+                                        <label class="datalabel">Имя: </label>
+                                        {% for data in  user %}
+                                        <input autocomplete="off" class="datainput" type="text" name="name" value="{{data.name}}">
+                                        {% endfor %}
+                                          <button type="submit" class="setbut" name="button">Изменить</button>
+                                      </form>
+                                      <form autocomplete="off" class="settform" action="{% url "changeSurname" %}" method="post">
+                                        {% csrf_token %}
+                                        <label class="datalabel">Фамилия: </label>
+                                        {% for data in  user %}
+                                          <input autocomplete="off" class="datainput" type="text" name="surname" value="{{data.surname}}">
+                                          {% endfor %}
+                                          <button type="submit" class="setbut" name="button">Изменить</button>
+                                      </form>
+                                      <form autocomplete="off" class="settform" action="{% url "changeMail" %}" method="post">
+                                        {% csrf_token %}
+                                        <label class="datalabel">Почтовый ящик: </label>
+                                        {% for data in  user %}
+                                          <input autocomplete="off" class="datainput" type="text" name="mail" value="{{data.mail}}">
+                                          {% endfor %}
+                                          <button type="submit" class="setbut" name="button">Изменить</button>
+                                      </form>
+                                      <form autocomplete="off" class="settform" action="{% url "changePass" %}" method="post">
+                                        {% csrf_token %}
+                                        <label class="datalabel">Пароль: </label>
+                                        {% for data in  user %}
+                                          <input autocomplete="off" class="datainput" type="password" name="password" value="{{data.password}}">
+                                          {% endfor %}
+                                          <button type="submit" class="setbut" name="button">Изменить</button>
+                                        </form>
+
+                                    </div>
+                                  </div>
+                                  {% else %}
+                                      <div class="options1">
+                                        <a class = "aopt" href="#"><p>Вы не авторизованы!!!</p></a>
+                                      </div>
+                                  {% endif %}
+                                {%  elif element.nav_name == "support" %}
+                                <div class="options1">
+                                  <a class = "aopt" href="#"><p>Страница с поддержкой еше в разработке</p></a>
+                                </div>
+                                {%  elif element.nav_name == "analitic" %}
+                                  {% if length != 0 %}
+                                    <div class="block-diagrams">
+                                        <canvas id="myChart" width="650" height="450"></canvas>
+                                        <div class="">
+                                        
+                                            <input id="fantazy" type="hidden" name="" value="{{userstat.fantazy}}">
+                                            <input id="dram" type="hidden" name="" value="{{userstat.dram}}">
+                                            <input id="kriminal" type="hidden" name="" value="{{userstat.kriminal}}">
+                                            <input id="science" type="hidden" name="" value="{{userstat.science}}">
+                                            <input id="comedy" type="hidden" name="" value="{{userstat.comedy}}">
+                                            <input id="horror" type="hidden" name="" value="{{userstat.horror}}">
+                                            <input id="multfilm" type="hidden" name="" value="{{userstat.multfilm}}">
+                                         
+                                        </div>
+                                    </div>
+                                  {% else %}
+                                  <div class="options1">
+                                    <a class = "aopt" href="#"><p>Вы не авторизованы!!!</p></a>
+                                  </div>
+                                  {% endif %}
+                                {% endif %}
+                            {% endfor%}
+                        {% endif %}
+
+                      </div>
+                  </div>
+                    
+                </div>
+            <div class="block-acc-nomain">
+
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script  src="{% static 'account/account.js' %}" ></script>
+  </body>
+</html>

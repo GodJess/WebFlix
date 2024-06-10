@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="{% static "main/index.css" %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="block-blur">
+    <div class="blur2"></div>
+    <div class="blur1"></div>
+  </div>
+  <div class ="main">
+   <div class="main-header">
+        <h2 class="head font">Webflix</h2>
+        <div class="main-links">
+            <a href="{% url 'main' %}" class="links font">Главная</a>
+            <a href="{%url 'account' %}" class="links font">Аккаунт</a>
+        </div>
+    </div>
+    <div class="desc-main">
+        <h1> Погрузись <br> во все жанры кино <br> с головой </h1>
+      <form action="{% url 'main' %}">
+        <button type="submit" class="forward">Вперед за кино</button>
+      <form>
+    </div> 
+  </div>
+</body>
+</html>

@@ -1,0 +1,221 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="{% static "main/details-content.css" %}">
+  </head>
+  <body>
+    <div class="blur-block"></div>
+    <main class="main">
+        <div class="header">
+          <div class="logo">
+            <h1><a class="aaa" href="{% url "main" %}">WebFlix</a></h1>
+          </div>
+          <div class="form">
+              <form class="" action="" method="post">
+                  <div class="input-form">
+
+                  </div>
+              </form>
+          </div>
+
+          <div class="account">
+            <a href="{% url 'account' %}" ><img class="account-image" src="https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png" alt=""></a>
+          </div>
+        </div>
+
+        <aside class="aside">
+          <div class="aside-block">
+            <a class="a" href="{% url 'fantazy' %}">Фантастика</a>
+        </div>
+        <div class="aside-block">
+            <a class="a" href="{% url 'dram' %}">Драмы</a>
+        </div>
+        <div class="aside-block">
+            <a class="a" href="{% url 'comedy' %}">Комедии</a>
+        </div>
+        <div class="aside-block">
+            <a class="a" href="{% url 'science' %}">Научные</a>
+        </div>
+        <div class="aside-block">
+            <a class="a" href="{% url 'kriminal' %}">Криминал</a>
+        </div>
+        <div class="aside-block">
+            <a class="a" href="{% url 'horror' %}">Ужасы</a>
+        </div>
+        <div class="aside-block">
+            <a class="a" href="{% url 'multfilm' %}">Мультфильмы</a>
+        </div>
+        <div class="aside-block">
+            <a class="a" href="{% url 'serial' %}">Сериалы</a>
+        </div>
+        <div class="aside-block">
+            <a class="a" href="{% url 'film' %}">Фильмы</a>
+        </div>
+          <div class="aside-block-lost">
+              <img class="img-lost" src="https://cdn.icon-icons.com/icons2/1261/PNG/512/1496676738-rounded-high-ultra-colour05-television_84626.png" alt="">
+          </div>
+
+        </aside>
+        <aside class="aside2">
+          <div class="promoImage">
+            {% for key, value in data.items %}
+            <img class="imagepromo" src="{{value.image}}" alt="">
+            {% endfor %}
+          </div>
+          <div class="serialname">
+            {% for key, value in data.items %}
+            <p>Name: {{value.name}}</p>
+            {% endfor %}
+          </div>
+          <div class="block-description">
+            {% for key, value in data.items %}
+            <p>Description:
+              {{value.description}}
+            </p>
+            {% endfor %}
+          </div>
+          <div class="date">
+            {% for key, value in data.items %}
+            <p>Release date: {{value.release_date}}</p>
+            {% endfor %}
+          </div>
+        </aside>
+        <div class="catalog">
+            <div class="block-video">
+              <!-- <iframe  class="video" width="500"  preload="auto" height="360" src="https://www.youtube.com/embed/GStAsqumaMw?si=czIQ4kxodwPgOrbF" title="YouTube video player" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+
+                <!-- <video class="video" controls width="500px" height="auto" preload="auto" src="https://vk.com/video-207691718_456250970" poster="posterimage.jpg">
+                </video> -->
+                <!-- <iframe src="https://vk.com/video_ext.php?oid=-207691718&id=456250970&hd=2" width="500" height="300"  preload="auto"  class="video"
+                allow=" encrypted-media; fullscreen;" frameborder="0" allowfullscreen></iframe> -->
+                {% if play %}
+                    {% for val in play %}
+                      <iframe src="{{ val.video }}" width="500" height="300"  preload="auto"  class="video"
+                      allow=" encrypted-media; fullscreen;" frameborder="0" allowfullscreen></iframe>
+                    {% endfor%}
+                {% else %}
+                    {% for key, value in data.items %}
+                    <iframe src="{{ value.review}}" width="500" height="300"  preload="auto"  class="video"
+                    allow=" encrypted-media; fullscreen;" frameborder="0" allowfullscreen></iframe>
+                    {% endfor %}
+                {% endif %}
+                <!-- <iframe src="https://vk.com/video_ext.php?oid=403439&id=456239801&hd=2&hash=2c6f10823a96b2f3" width="853" height="480"
+                allow="autoplay; encrypted-media; fullscreen; picture-in-picture;" frameborder="0" allowfullscreen></iframe> -->
+            </div>
+            <div class="panel-sezon">
+
+              <div class="SEASON">
+                {% for key, value in data.items %}
+                  {% for el in value.countseason %}
+                <div class="form-button">
+                  <form  action="{% url "add_video" %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="serialname" value="{{value.name}}">
+                    <input type="hidden" name="season" value="{{el}}">
+                    <button type="submit" name="button" class="sezon-button">{{el}}</button>
+                  </form>
+                </div>
+                  {% endfor %}
+                {% endfor%}
+               
+              </div>
+                
+            </div>
+            <div class="block-series">
+              {% for video in list_video %}
+              <div class="block-ser">
+                        <img class="image-seriess" src="{{ video.prevewimage}}" alt="">
+                        <p class="nuberSer">{{video.numberseries}} серия</p>
+                    <div class="ser-button">
+                      <form class="" action="{% url "play_video" %}"  method="post">
+                        {% csrf_token %}
+                        <input class="id" type="hidden" name="series" value="{{video.numberseries}}" readonly>
+                        <input class="id" type="hidden" name="season" value="{{video.number}}" readonly>
+                        <input class="id" type="hidden" name="serialname" value="{{video.name}}" readonly>
+                        <button class="serr-button" type="submit" name="button"><img src="https://cdn.icon-icons.com/icons2/906/PNG/512/play-circle_icon-icons.com_69988.png" alt=""></button>
+                      </form>
+                    </div>
+              </div>
+              {% endfor%}
+            </div>
+            <div class="block-comment">
+              <div class="block-output">
+                <div class="first1">
+                  <h5>Отзывы зрителей</h5>
+                </div>
+                {% if comment %}
+                {% for el in comment %}
+                <div class="comment">
+                  <div class="main-part-comment">
+                    <div class="login">
+                      <img class="img-comment" src="https://cdn.icon-icons.com/icons2/1508/PNG/512/systemusers_104569.png" alt="">
+                      <p>{{el.loginCom}}</p>
+                    </div>
+                    <div class="text-comment">
+                      <p>{{el.text}}</p>
+                    </div>
+                  </div>
+                  <div class="likes">
+                      <div class="block-like">
+                          <input type="text" class="input-like" name="" value="{{el.like}}" readonly>
+                          <a  type="button"><img class="like" src="https://cdn.icon-icons.com/icons2/625/PNG/512/thumb-up_icon-icons.com_57388.png" alt=""></a>
+                      </div>
+                      <div class="block-dislike">
+                          <input type="text" class="input-dislike" name="" value="{{el.dislike}}" readonly>
+                          <a  type="button"><img class="dislike" src="https://cdn.icon-icons.com/icons2/625/PNG/512/thumb-down_icon-icons.com_57389.png" alt=""></a>
+                      </div>
+                  </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                  <div class="first">
+                    <p>Здесь пока ничего нет</p>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="block-input">
+                <div class="block-input-content">
+                  <form class="form-input" autocomplete="off" action="{% url "addcomment" %}" method="post">
+                    {% csrf_token %}
+                    {% if isUser != 0 %}
+                    {% for key, value in data.items %}
+                    <input  type="hidden" name="serialName" value="{{value.name}}" >
+                    {% endfor %}
+                      <textarea class="area-comment" name="text" rows="8" cols="80" placeholder="Введите текст"></textarea>
+                    <button class="button-comment" type="submit" name="button">Опубликовать</button>
+                    {% else %}
+                    {% for key, value in data.items %}
+                    <input  type="hidden" name="serialName" value="{{value.name}}" >
+                    {% endfor %}
+                    <div class="block-error">
+                       
+                      <p class = "errors"> Необходимо <a class="aerror" href="{% url 'account' %}">авторизоваться</a></p>
+                     
+                    </div>
+                      <textarea class="area-comment" name="text" rows="8" cols="80" placeholder="Введите текст"></textarea>
+                    <button class="button-comment" type="button" name="button">Опубликовать</button>
+
+                    {% endif %}
+                    
+                  </form>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="footer">
+          <div class="adver">
+            <img class="images" src="https://logos-download.com/wp-content/uploads/2022/01/Fonbet_Logo-2048x624.png" alt="">
+            <div class="adver-text">
+                <p>Кликай на  <a class="hreff" href="https://www.fon.bet/?utm_referrer=https%3A%2F%2Fwww.yandex.ru%2F">ссылку</a> <br> и забирай депозит
+                </p>
+            </div>
+          </div>
+        </div>
+    </main>
+  </body>
+</html>

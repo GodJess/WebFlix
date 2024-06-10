@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static "account/auth.css"%}">
+  </head>
+  <body>
+    <div class="block-register">
+      <div class="nav">
+        <div class="register">
+            <a  class="reg-link" href="#">Авторизация</a>
+        </div>
+        <div class="autoriz">
+          <a class="aut-link" href="{% url 'register' %}">Регистрация</a>
+        </div>
+      </div>
+      <div class="block-form">
+        <form  autocomplete="off" class="form"  method="post">
+          <div class="block-error">
+            {% if error %}
+            <p class = "errors"> {{error}}</p>
+            {% endif %}
+          </div>
+            {% csrf_token %}
+          <input  autocomplete="off" class="input-mail" type="text" name="login" value="" placeholder="login*">
+          <input  autocomplete="off" class="password" type="password" name="password" value="" placeholder="Пароль*">
+          <button class="button-register" type="submit" name="button">Авторизоваться</button>
+          <div class="block-return">
+              <a class="rethome" href="{% url 'account' %}">Вернуться в личный кабинет</a>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </body>
+</html>

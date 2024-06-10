@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="{% static "main/main.css" %}">
+  </head>
+  <body>
+    <div class="blur-block"></div>
+    <main class="main">
+        <div class="header">
+          <div class="logo">
+            <h1><a class="aaa" href="{% url "main" %}">WebFlix</a></h1>
+          </div>
+          <div class="form">
+              <form autocomplete="off" class="" action="{% url "search" %}" method="post">
+                {% csrf_token %}
+                  <input class="input-form" type="text" name="search" value="" placeholder="Введите название сериала">
+                  <button class = "button-form" type="submit" name="button"><img class="image-search" src="https://cdn.icon-icons.com/icons2/1129/PNG/512/searchmagnifierinterfacesymbol1_79893.png" alt=""></button>
+              </form>
+          </div>
+
+          <div class="account"> 
+            <a href="{% url "account" %}" ><img class="account-image" src="https://cdn.icon-icons.com/icons2/1812/PNG/512/4213460-account-avatar-head-person-profile-user_115386.png" alt=""></a>
+          </div>
+        </div>
+
+        <aside class="aside">
+          <div class="aside-block">
+              <a class="a" href="{% url 'fantazy' %}">Фантастика</a>
+          </div>
+          <div class="aside-block">
+              <a class="a" href="{% url 'dram' %}">Драмы</a>
+          </div>
+          <div class="aside-block">
+              <a class="a" href="{% url 'comedy' %}">Комедии</a>
+          </div>
+          <div class="aside-block">
+              <a class="a" href="{% url 'science' %}">Научные</a>
+          </div>
+          <div class="aside-block">
+              <a class="a" href="{% url 'kriminal' %}">Криминал</a>
+          </div>
+          <div class="aside-block">
+              <a class="a" href="{% url 'horror' %}">Ужасы</a>
+          </div>
+          <div class="aside-block">
+              <a class="a" href="{% url 'multfilm' %}">Мультфильмы</a>
+          </div>
+          <div class="aside-block">
+              <a class="a" href="{% url 'serial' %}">Сериалы</a>
+          </div>
+          <div class="aside-block">
+              <a class="a" href="{% url 'film' %}">Фильмы</a>
+          </div>
+          <div class="aside-block-lost">
+              <img class="img-lost" src="https://cdn.icon-icons.com/icons2/1261/PNG/512/1496676738-rounded-high-ultra-colour05-television_84626.png" alt="">
+          </div>
+
+        </aside>
+        <div class="catalog">
+            {% block movie %}
+            {% endblock %}
+        </div>   
+        <div class="undercatalog">
+        </div>  
+        <div class="footer">
+          <div class="adver">
+            <img class="images" src="https://logos-download.com/wp-content/uploads/2022/01/Fonbet_Logo-2048x624.png" alt="">
+            <div class="adver-text">
+                <p>Кликай на  <a class="hreff" href="https://www.fon.bet/?utm_referrer=https%3A%2F%2Fwww.yandex.ru%2F">ссылку</a> <br> и забирай депозит
+                </p>
+            </div>
+
+          </div>
+        </div>
+    </main>
+  </body>
+</html>

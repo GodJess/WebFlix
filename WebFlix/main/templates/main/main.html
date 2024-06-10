@@ -1,0 +1,27 @@
+
+{% extends "main/late.html" %}
+
+{% block movie %}
+  {% if content %}
+    {% for el in content %}
+    <div class="block-movie">
+        <div class="block-image">
+          <img class="image-name" src="{{el.image}}" alt="">
+          <div class="name">
+              <p>{{el.name}}</p>
+          </div>
+        </div>
+        <div class="panel">
+          <form  action="{% url "details_content" %}" method="post">
+            {% csrf_token %}
+              <input type="hidden"  name="id" value="{{el.id}}">
+                <button class="button"  type="submit">Смотреть</button>
+          </form>
+        </div>
+      </div>
+
+    {% endfor %}
+  {% else %}
+      <p class="text">По запросу "{{words}}" ничего не найдено</p>
+  {% endif %}
+{% endblock %}
